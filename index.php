@@ -1,8 +1,20 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<?php
+    $dbh = mysqli_connect("localhost", "parkjh", "password") or die(mysql_error());
+    mysqli_select_db($dbh, "testcms");
+    // get homepage stored values
+    $query = mysqli_query($dbh, "SELECT * FROM homepage WHERE title=\"Welcome to TestCMS\"") or die(mysql_error());
+    $homedata = mysqli_fetch_assoc($query);
+    $images = explode(',', $homedata['images']);
+?>
+
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 	<head>
-		<title>Product Splash</title>
+		<title>
+      <?php 
+          echo($homedata['title']);
+      ?>
+    </title>
 		<link rel="stylesheet" type="text/css" href="styles.css" />
 		<link rel="stylesheet" href="nivoslider/nivo-slider.css" type="text/css" media="screen" />
 		<link rel="stylesheet" href="nivoslider/themes/default/default.css" type="text/css" media="screen" />
@@ -14,30 +26,29 @@
 	
 		<div class="container">
 			<div class="header">
-				<h1>Landing Page</h1>
+				<h1>
+          <?php echo($homedata['title']); ?>
+        </h1>
 				<div class="get-it-buttons">
-					<a href="#" class="free-trial-button">Free Trial</a>
-					<a href="#" class="buy-it-button">Buy It Now</a>
+					<a href="#" class="buy-it-button">News</a>
+					<a href="#" class="free-trial-button">About Us</a>
+					<a href="#" class="buy-it-button">Contact</a>
 				</div>
 			</div>
-			<div class="intro">
-				<h2>Product Name</h2>
-				<p>Promote your products or apps in style with this free template from MediaLoot</p>
-				
-				
-				<div class="slider-wrapper theme-default mask-container-large">
-				    <div id="slider" class="nivoSlider">
-				        <img src="images/image-large-1.jpg" alt="" />
-				        <img src="images/image-large-2.jpg" alt="" />
-				        <img src="images/image-large-3.jpg" alt="" />
-				        <img src="images/image-large-4.jpg" alt="" />
-				    </div>
-				    <div class="mask-gloss-large"></div>
-				</div>
-			</div>
-			<div class="divider-2"></div>
+                    
+      <div class="slider-wrapper theme-default mask-container-large">
+          <div id="slider" class="nivoSlider">
+            <?php 
+              foreach($images as $temp){
+                echo('<img src="images/'.$temp.'"/>');
+              }
+            ?>
+          </div>
+          <div class="mask-gloss-large"></div>
+      </div>
+                    
 			<div class="top-features">
-				<h3>Top Features</h3>
+				<h3>Articles</h3>
 				<div class="inset-top"></div>
 				<div class="inset">
 					<div class="row"><!--Start of Row-->
@@ -53,10 +64,6 @@
 							</div>
 							<div class="description">
 								<h4>Lorem Ipsum</h4>
-								<p>Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Etiam porta sem malesuada magna mollis euismod.</p>
-								
-								<p>Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
-								
 								<p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor.</p>
 							</div>
 						</div><!--End of Feature-->
@@ -72,10 +79,6 @@
 							</div>
 							<div class="description">
 								<h4>Lorem Ipsum</h4>
-								<p>Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Etiam porta sem malesuada magna mollis euismod.</p>
-								
-								<p>Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
-								
 								<p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor.</p>
 							</div>
 						</div><!--End of Feature-->
@@ -96,10 +99,6 @@
 							</div>
 							<div class="description">
 								<h4>Lorem Ipsum</h4>
-								<p>Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Etiam porta sem malesuada magna mollis euismod.</p>
-								
-								<p>Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
-								
 								<p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor.</p>
 							</div>
 						</div><!--End of Feature-->
@@ -115,10 +114,6 @@
 							</div>
 							<div class="description">
 								<h4>Lorem Ipsum</h4>
-								<p>Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Etiam porta sem malesuada magna mollis euismod.</p>
-								
-								<p>Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
-								
 								<p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor.</p>
 							</div>
 						</div><!--End of Feature-->
@@ -132,7 +127,7 @@
 			</div>
 			
 			<div class="testimonials">
-				<h3>Testimonials</h3>
+				<h3>Tweets</h3>
 				
 				<div class="quote"><!--Start of Quote-->
 					<img src="images/quotation-mark.png" alt="quotation mark" class="quotation-mark" />
@@ -155,15 +150,6 @@
 				<br class="clear" />
 				
 			</div>
-			
-			<div class="footer">
-				<p>Copyright 2011 <strong>Product Name</strong>. All Rights Reserved.
-				<div class="get-it-buttons">
-					<a href="#" class="free-trial-button">Free Trial</a>
-					<a href="#" class="buy-it-button">Buy It Now</a>
-				</div>
-			</div>
-			
 		</div>
 		
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>

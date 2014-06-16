@@ -1,29 +1,31 @@
 The websites IA should be as follows:
 •  Homepage (Hero gallery, 4 Latest news articles, 2 Latest tweets)
-o  About us (standard content page)
-  Our history (standard content page)
-  Our approach  (standard content page)
-o  News (Listing page, 10 per page then paginated)
-  News article (News article) * x
-o  Contact us (Contact form that emails and stores in the database)
+  o  About us (standard content page)
+      Our history (standard content page)
+      Our approach  (standard content page)
+  o  News (Listing page, 10 per page then paginated)
+      News article (News article) * x
+  o  Contact us (Contact form that emails and stores in the database)
 
 The content types need the following fields
 •  Home page
-o  Title
-o  Body
-o  URL
-o  Gallery image * 5
-o  Gallery image link * 5
+  o  Title
+  o  Body
+  o  URL
+  o  Gallery image * 5
+  o  Gallery image link * 5
+
 •  Standard content page
-o  Title
-o  Body
-o  URL
+  o  Title
+  o  Body
+  o  URL
+
 •  News article
-o  Title
-o  Date
-o  Body
-o  URL
-o  Image
+  o  Title
+  o  Date
+  o  Body
+  o  URL
+  o  Image
 
 The contact form should have the following fields:
 •  First name

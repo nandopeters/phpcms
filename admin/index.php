@@ -1,4 +1,7 @@
-<!doctype html>
+<?php
+  $dbh = mysqli_connect("localhost", "parkjh", "password") or die(mysql_error());
+  mysqli_select_db($dbh, "testcms");
+?>
 <html lang="en">
 
 <head>
@@ -59,6 +62,7 @@
 		</hgroup>
 	</header> <!-- end of header bar -->
 	
+  
 	<section id="secondary_bar">
 		<div class="user">
 			<p>John Doe (<a href="#">3 Messages</a>)</p>
@@ -81,12 +85,14 @@
 			<li class="icn_categories"><a href="#">Categories</a></li>
 			<li class="icn_tags"><a href="#">Tags</a></li>
 		</ul>
+    <!--
 		<h3>Users</h3>
 		<ul class="toggle">
 			<li class="icn_add_user"><a href="#">Add New User</a></li>
 			<li class="icn_view_users"><a href="#">View Users</a></li>
 			<li class="icn_profile"><a href="#">Your Profile</a></li>
 		</ul>
+    -->
 		<h3>Media</h3>
 		<ul class="toggle">
 			<li class="icn_folder"><a href="#">File Manager</a></li>
@@ -94,6 +100,7 @@
 			<li class="icn_audio"><a href="#">Audio</a></li>
 			<li class="icn_video"><a href="#">Video</a></li>
 		</ul>
+    <!--
 		<h3>Admin</h3>
 		<ul class="toggle">
 			<li class="icn_settings"><a href="#">Options</a></li>
@@ -106,10 +113,11 @@
 			<p><strong>Copyright &copy; 2011 Website Admin</strong></p>
 			<p>Theme by <a href="http://www.medialoot.com">MediaLoot</a></p>
 		</footer>
+    -->
 	</aside><!-- end of sidebar -->
 	
 	<section id="main" class="column">
-		
+		<!--
 		<h4 class="alert_info">Welcome to the free MediaLoot admin panel template, this could be an informative message.</h4>
 		
 		<article class="module width_full">
@@ -142,8 +150,9 @@
 		<article class="module width_3_quarter">
 		<header><h3 class="tabs_involved">Content Manager</h3>
 		<ul class="tabs">
-   			<li><a href="#tab1">Posts</a></li>
-    		<li><a href="#tab2">Comments</a></li>
+   			<li><a href="#tab1">Homepage</a></li>
+    		<li><a href="#tab2">News</a></li>
+    		<li><a href="#tab3">Content</a></li>
 		</ul>
 		</header>
 
@@ -153,99 +162,76 @@
 			<thead> 
 				<tr> 
    					<th></th> 
-    				<th>Entry Name</th> 
-    				<th>Category</th> 
-    				<th>Created On</th> 
+    				<th>Title</th> 
+    				<th>Body</th> 
+    				<th>URLs</th> 
+    				<th>Images</th> 
     				<th>Actions</th> 
 				</tr> 
 			</thead> 
 			<tbody> 
-				<tr> 
-   					<td><input type="checkbox"></td> 
-    				<td>Lorem Ipsum Dolor Sit Amet</td> 
-    				<td>Articles</td> 
-    				<td>5th April 2011</td> 
-    				<td><input type="image" src="images/icn_edit.png" title="Edit"><input type="image" src="images/icn_trash.png" title="Trash"></td> 
-				</tr> 
-				<tr> 
-   					<td><input type="checkbox"></td> 
-    				<td>Ipsum Lorem Dolor Sit Amet</td> 
-    				<td>Freebies</td> 
-    				<td>6th April 2011</td> 
-   				 	<td><input type="image" src="images/icn_edit.png" title="Edit"><input type="image" src="images/icn_trash.png" title="Trash"></td> 
-				</tr>
-				<tr> 
-   					<td><input type="checkbox"></td> 
-    				<td>Sit Amet Dolor Ipsum</td> 
-    				<td>Tutorials</td> 
-    				<td>10th April 2011</td> 
-    				<td><input type="image" src="images/icn_edit.png" title="Edit"><input type="image" src="images/icn_trash.png" title="Trash"></td> 
-				</tr> 
-				<tr> 
-   					<td><input type="checkbox"></td> 
-    				<td>Dolor Lorem Amet</td> 
-    				<td>Articles</td> 
-    				<td>16th April 2011</td> 
-   				 	<td><input type="image" src="images/icn_edit.png" title="Edit"><input type="image" src="images/icn_trash.png" title="Trash"></td> 
-				</tr>
-				<tr> 
-   					<td><input type="checkbox"></td> 
-    				<td>Dolor Lorem Amet</td> 
-    				<td>Articles</td> 
-    				<td>16th April 2011</td> 
-   				 	<td><input type="image" src="images/icn_edit.png" title="Edit"><input type="image" src="images/icn_trash.png" title="Trash"></td> 
-				</tr>  
+        <td><input type="checkbox"></td> 
+				<?php
+          $query1 = mysqli_query($dbh, "SELECT * FROM homepage") or die(mysql_error());
+          $homedata = mysqli_fetch_assoc($query1);
+          foreach($homedata as $keys){
+            echo("<td>$keys</td>");
+          }
+        ?>
+        <td><input type="image" src="images/icn_edit.png" title="Edit"><input type="image" src="images/icn_trash.png" title="Trash"></td> 
 			</tbody> 
 			</table>
 			</div><!-- end of #tab1 -->
+      
+      <div class="tab_container">
+			<div id="tab3" class="tab_content">
+			<table class="tablesorter" cellspacing="0"> 
+			<thead> 
+				<tr> 
+          <th>title</th> 
+          <th>URLs</th> 
+          <th>body</th> 
+          <th>Actions</th> 
+				</tr> 
+			</thead> 
+			<tbody> 
+				<?php
+          $query3 = mysqli_query($dbh, "SELECT * FROM content LIMIT 0, 4") or die(mysql_error());
+          while($contdata = mysqli_fetch_assoc($query3)){
+            echo("<tr>");
+            foreach($contdata as $keys){
+              echo("<td>$keys</td>");
+            }
+            echo("<td><input type=\"image\" src=\"images/icn_edit.png\" title=\"Edit\"><input type=\"image\" src=\"images/icn_trash.png\" title=\"Trash\"></td></tr> ");
+          }
+        ?> 
+			</tbody> 
+			</table>
+			</div><!-- end of #tab3 -->
 			
 			<div id="tab2" class="tab_content">
 			<table class="tablesorter" cellspacing="0"> 
 			<thead> 
 				<tr> 
-   					<th></th> 
-    				<th>Comment</th> 
-    				<th>Posted by</th> 
-    				<th>Posted On</th> 
+   					<th>title</th> 
+    				<th>date</th> 
+    				<th>body</th> 
+    				<th>images</th> 
+    				<th>URLs</th> 
     				<th>Actions</th> 
 				</tr> 
 			</thead> 
 			<tbody> 
-				<tr> 
-   					<td><input type="checkbox"></td> 
-    				<td>Lorem Ipsum Dolor Sit Amet</td> 
-    				<td>Mark Corrigan</td> 
-    				<td>5th April 2011</td> 
-    				<td><input type="image" src="images/icn_edit.png" title="Edit"><input type="image" src="images/icn_trash.png" title="Trash"></td> 
-				</tr> 
-				<tr> 
-   					<td><input type="checkbox"></td> 
-    				<td>Ipsum Lorem Dolor Sit Amet</td> 
-    				<td>Jeremy Usbourne</td> 
-    				<td>6th April 2011</td> 
-   				 	<td><input type="image" src="images/icn_edit.png" title="Edit"><input type="image" src="images/icn_trash.png" title="Trash"></td> 
-				</tr>
-				<tr> 
-   					<td><input type="checkbox"></td> 
-    				<td>Sit Amet Dolor Ipsum</td> 
-    				<td>Super Hans</td> 
-    				<td>10th April 2011</td> 
-    				<td><input type="image" src="images/icn_edit.png" title="Edit"><input type="image" src="images/icn_trash.png" title="Trash"></td> 
-				</tr> 
-				<tr> 
-   					<td><input type="checkbox"></td> 
-    				<td>Dolor Lorem Amet</td> 
-    				<td>Alan Johnson</td> 
-    				<td>16th April 2011</td> 
-   				 	<td><input type="image" src="images/icn_edit.png" title="Edit"><input type="image" src="images/icn_trash.png" title="Trash"></td> 
-				</tr> 
-				<tr> 
-   					<td><input type="checkbox"></td> 
-    				<td>Dolor Lorem Amet</td> 
-    				<td>Dobby</td> 
-    				<td>16th April 2011</td> 
-   				 	<td><input type="image" src="images/icn_edit.png" title="Edit"><input type="image" src="images/icn_trash.png" title="Trash"></td> 
-				</tr> 
+    		<?php
+          $query2 = mysqli_query($dbh, "SELECT * FROM news LIMIT 0, 4") or die(mysql_error());
+          while($newsdata = mysqli_fetch_assoc($query2)){
+            echo("<tr>");
+            foreach($newsdata as $keys){
+              echo("<td>$keys</td>");
+            }
+            echo("<td><input type=\"image\" src=\"images/icn_edit.png\" title=\"Edit\"><input type=\"image\" src=\"images/icn_trash.png\" title=\"Trash\"></td></tr> ");
+          }
+        ?>
 			</tbody> 
 			</table>
 
@@ -255,6 +241,7 @@
 		
 		</article><!-- end of content manager article -->
 		
+    <!--
 		<article class="module width_quarter">
 			<header><h3>Messages</h3></header>
 			<div class="message_list">
@@ -279,44 +266,41 @@
 			</footer>
 		</article><!-- end of messages article -->
 		
-		<div class="clear"></div>
-		
-		<article class="module width_full">
-			<header><h3>Post New Article</h3></header>
+    <div class="clear"></div>
+    
+    <form class="module width_full" method="post" action="submitpost.php">
+			<header><h3>New Post</h3></header>
 				<div class="module_content">
 						<fieldset>
-							<label>Post Title</label>
-							<input type="text">
+							<label>Title</label>
+							<input type="text" name="titleinput">
 						</fieldset>
 						<fieldset>
-							<label>Content</label>
-							<textarea rows="12"></textarea>
+							<label>Content Body</label>
+							<textarea rows="12" name="bodyinput"></textarea>
 						</fieldset>
 						<fieldset style="width:48%; float:left; margin-right: 3%;"> <!-- to make two field float next to one another, adjust values accordingly -->
-							<label>Category</label>
-							<select style="width:92%;">
-								<option>Articles</option>
-								<option>Tutorials</option>
-								<option>Freebies</option>
-							</select>
+							<label>Images</label>
+							<input type="text" style="width:92%;" name="imginput">
 						</fieldset>
 						<fieldset style="width:48%; float:left;"> <!-- to make two field float next to one another, adjust values accordingly -->
-							<label>Tags</label>
-							<input type="text" style="width:92%;">
+							<label>URLs</label>
+							<input type="text" style="width:92%;" name="linkinput">
 						</fieldset><div class="clear"></div>
 				</div>
 			<footer>
 				<div class="submit_link">
-					<select>
-						<option>Draft</option>
-						<option>Published</option>
+					<select name="tablename">
+						<option>homepage</option>
+						<option>content</option>
+            <option>news</option>
 					</select>
-					<input type="submit" value="Publish" class="alt_btn">
-					<input type="submit" value="Reset">
+          <input type="submit" value="Publish" class="alt_btn">
+          <input type="submit" value="Reset">
 				</div>
 			</footer>
-		</article><!-- end of post new article -->
-		
+		</form><!-- end of post new article -->
+		<!--
 		<h4 class="alert_warning">A Warning Alert</h4>
 		
 		<h4 class="alert_error">An Error Message</h4>
