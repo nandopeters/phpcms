@@ -1,10 +1,10 @@
 <?php
-    $dbh = mysqli_connect("localhost", "parkjh", "password") or die(mysql_error());
-    mysqli_select_db($dbh, "testcms");
-    // get homepage stored values
-    $query = mysqli_query($dbh, "SELECT * FROM homepage WHERE title=\"Welcome to TestCMS\"") or die(mysql_error());
-    $homedata = mysqli_fetch_assoc($query);
-    $images = explode(',', $homedata['images']);
+  $mysqli = new mysqli('localhost','parkjh','password','testcms');
+  if(!$mysqli) {exit(mysqli_connect_error ());}
+  // get homepage stored values
+  $query = mysqli_query($dbh, "SELECT * FROM homepage WHERE title=\"Welcome to TestCMS\"") or die(mysql_error());
+  $homedata = mysqli_fetch_assoc($query);
+  $images = explode(',', $homedata['images']);
 ?>
 
 <html xmlns="http://www.w3.org/1999/xhtml">

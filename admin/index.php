@@ -1,6 +1,6 @@
 <?php
-  $dbh = mysqli_connect("localhost", "parkjh", "password") or die(mysql_error());
-  mysqli_select_db($dbh, "testcms");
+  $mysqli = new mysqli('localhost','parkjh','password','testcms');
+  if(!$mysqli) {exit(mysqli_connect_error ());}
 ?>
 <html lang="en">
 
